@@ -117,7 +117,9 @@ function Panier() {
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Erreur lors de la commande');
+        console.error('API Error Response:', errorData);
+        console.error('Status Code:', response.status);
+        throw new Error(errorData.error || errorData.message || `Erreur ${response.status}: ${response.statusText}`);
       }
 
       const result = await response.json();
@@ -136,8 +138,28 @@ function Panier() {
       });
 
     } catch (error) {
-      console.error('Erreur:', error);
-      alert(`Une erreur est survenue lors de la commande: ${error.message}\n\nVeuillez réessayer ou contacter le support.`);
+      console.error('Erreur complète:', error);
+      console.error('Type d\'erreur:', error.name);
+      console.error('Message:', error.message);
+      
+      let userMessage = 'Une erreur est survenue lors de la commande.\n\n';
+      
+      if (error.message.includes('Failed to fetch') || error.message.includes('NetworkError')) {
+        userMessage += '❌ Erreur de connexion\n';
+        userMessage += 'Vérifiez votre connexion internet ou que l\'API est accessible.\n\n';
+      } else if (error.message.includes('403')) {
+        userMessage += '❌ Accès refusé (403)\n';
+        userMessage += 'Problème de permissions ou CORS.\n\n';
+      } else if (error.message.includes('500')) {
+        userMessage += '❌ Erreur serveur (500)\n';
+        userMessage += 'Vérifiez les logs CloudWatch Lambda.\n\n';
+      } else {
+        userMessage += `Détails: ${error.message}\n\n`;
+      }
+      
+      userMessage += 'Consultez la console (F12) pour plus de détails.';
+      
+      alert(userMessage);
     } finally {
       setIsSubmitting(false);
     }
