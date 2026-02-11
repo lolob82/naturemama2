@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import { config, isConfigured } from '../config';
 import './Panier.css';
 
 function Panier() {
@@ -24,8 +25,11 @@ function Panier() {
   };
 
   const validatePhone = (phone) => {
-    const re = /^(\+33|0)[1-9](\d{2}){4}$/;
-    return re.test(phone.replace(/\s/g, ''));
+    // Remove all spaces and dashes
+    const cleaned = phone.replace(/[\s-]/g, '');
+    // French phone: 0612345678 or +33612345678 or 33612345678
+    const re = /^(\+33|0033|0)[1-9](\d{8})$/;
+    return re.test(cleaned);
   };
 
   const handleInputChange = (e) => {
@@ -81,6 +85,11 @@ function Panier() {
     e.preventDefault();
 
     if (!validateForm()) {
+      // Scroll to first error
+      const firstError = document.querySelector('.error');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
       return;
     }
 
@@ -94,10 +103,11 @@ function Panier() {
         orderDate: new Date().toISOString()
       };
 
-      // TODO: Remplacer par votre URL API Gateway
-      const API_URL = 'https://pe3xy8ft5i.execute-api.us-east-1.amazonaws.com/prod/orders';
+      if (!isConfigured()) {
+        throw new Error('L\'API n\'est pas configurée. Veuillez mettre à jour l\'URL dans src/config.js');
+      }
       
-      const response = await fetch(API_URL, {
+      const response = await fetch(config.apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -106,7 +116,8 @@ function Panier() {
       });
 
       if (!response.ok) {
-        throw new Error('Erreur lors de la commande');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Erreur lors de la commande');
       }
 
       const result = await response.json();
@@ -126,7 +137,7 @@ function Panier() {
 
     } catch (error) {
       console.error('Erreur:', error);
-      alert('Une erreur est survenue lors de la commande. Veuillez réessayer.');
+      alert(`Une erreur est survenue lors de la commande: ${error.message}\n\nVeuillez réessayer ou contacter le support.`);
     } finally {
       setIsSubmitting(false);
     }
@@ -312,10 +323,13 @@ function Panier() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    placeholder="0612345678"
+                    placeholder="06 12 34 56 78"
                     className={errors.phone ? 'error' : ''}
                   />
                   {errors.phone && <span className="error-message">{errors.phone}</span>}
+                  <small style={{ display: 'block', marginTop: '0.25rem', color: 'var(--earth-brown)', fontSize: '0.85rem' }}>
+                    Format accepté: 0612345678, +33612345678, ou avec espaces
+                  </small>
                 </div>
 
                 <div className="form-actions">

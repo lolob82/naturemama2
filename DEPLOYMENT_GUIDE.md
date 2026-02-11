@@ -77,15 +77,31 @@ Une fois la stack créée :
 
 ## 🔗 Étape 4 : Configuration de l'Application React
 
-1. Ouvrez le fichier `src/pages/Panier.jsx`
+### Option 1 : Fichier de configuration (Recommandé)
+
+1. Ouvrez le fichier `src/config.js`
 2. Trouvez la ligne :
    ```javascript
-   const API_URL = 'YOUR_API_GATEWAY_URL_HERE';
+   apiUrl: import.meta.env.VITE_API_URL || 'YOUR_API_GATEWAY_URL_HERE',
    ```
-3. Remplacez par l'URL copiée :
+3. Remplacez `'YOUR_API_GATEWAY_URL_HERE'` par l'URL copiée :
    ```javascript
-   const API_URL = 'https://xxxxxxxxxx.execute-api.eu-west-1.amazonaws.com/prod/orders';
+   apiUrl: import.meta.env.VITE_API_URL || 'https://xxxxxxxxxx.execute-api.eu-west-1.amazonaws.com/prod/orders',
    ```
+
+### Option 2 : Variable d'environnement (Production)
+
+1. Créez un fichier `.env` à la racine du projet :
+   ```bash
+   cp .env.example .env
+   ```
+
+2. Éditez le fichier `.env` :
+   ```
+   VITE_API_URL=https://xxxxxxxxxx.execute-api.eu-west-1.amazonaws.com/prod/orders
+   ```
+
+3. Redémarrez le serveur de développement
 
 ## 🧪 Étape 5 : Test de l'Application
 
@@ -130,6 +146,21 @@ Le template CloudFormation crée :
    - `status` : Statut (confirmed)
 
 ## 🛠️ Dépannage
+
+### Erreurs de Validation du Formulaire
+
+**Problème : "Format de téléphone invalide"**
+- Formats acceptés : `0612345678`, `+33612345678`, `06 12 34 56 78`
+- Le numéro doit commencer par 0 ou +33
+- Doit contenir 10 chiffres (hors indicatif international)
+
+**Problème : "Format d'email invalide"**
+- Vérifiez qu'il y a un @ et un domaine valide
+- Exemple valide : `client@example.com`
+
+**Problème : "Code postal invalide"**
+- Doit contenir exactement 5 chiffres
+- Exemple : `75001`
 
 ### L'email n'est pas reçu
 

@@ -34,12 +34,22 @@ NatureMama Heritage incarne la rencontre entre la sagesse ancestrale des plantes
 npm install
 ```
 
-2. Lancer le serveur de développement :
+2. Configurer l'API (après déploiement CloudFormation) :
+```bash
+# Option 1 : Fichier de configuration
+# Éditez src/config.js et remplacez YOUR_API_GATEWAY_URL_HERE
+
+# Option 2 : Variable d'environnement
+cp .env.example .env
+# Éditez .env et ajoutez votre URL API
+```
+
+3. Lancer le serveur de développement :
 ```bash
 npm run dev
 ```
 
-3. Ouvrir [http://localhost:3000](http://localhost:3000)
+4. Ouvrir [http://localhost:3000](http://localhost:3000)
 
 ### Build Production
 
