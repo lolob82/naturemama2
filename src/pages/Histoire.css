@@ -1,0 +1,145 @@
+.histoire-page {
+  background: var(--cream);
+}
+
+.hero-section {
+  background: white;
+  padding: 5rem 0;
+  text-align: center;
+  border-bottom: 1px solid var(--soft-gray);
+}
+
+.lead-text {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  font-size: 1.25rem;
+  line-height: 1.9;
+  color: var(--earth-brown);
+  font-weight: 300;
+}
+
+.story-content {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.story-block {
+  background: white;
+  padding: 3.5rem;
+  border-radius: 12px;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  border: 1px solid var(--soft-gray);
+}
+
+.story-block h2 {
+  color: var(--sage-dark);
+  margin-bottom: 1.5rem;
+  font-size: 1.85rem;
+  font-weight: 600;
+}
+
+.story-block p {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: var(--earth-brown);
+  font-weight: 300;
+}
+
+.differentiation {
+  background: white;
+  padding: 5rem 0;
+  border-top: 1px solid var(--soft-gray);
+  border-bottom: 1px solid var(--soft-gray);
+}
+
+.diff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+}
+
+.diff-card {
+  background: var(--cream);
+  padding: 2.5rem;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid var(--soft-gray);
+  transition: all 0.3s ease;
+}
+
+.diff-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.diff-card h3 {
+  color: var(--sage-dark);
+  margin-bottom: 1rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.diff-card p {
+  color: var(--earth-brown);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+.process {
+  padding: 5rem 0;
+}
+
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 2.5rem;
+}
+
+.process-step {
+  text-align: center;
+}
+
+.step-number {
+  width: 70px;
+  height: 70px;
+  background: var(--sage-green);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 4px 12px rgba(156, 175, 136, 0.3);
+}
+
+.process-step h3 {
+  color: var(--sage-dark);
+  margin-bottom: 0.75rem;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.process-step p {
+  color: var(--earth-brown);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .story-block {
+    padding: 2rem;
+  }
+  
+  .hero-section {
+    padding: 3rem 0;
+  }
+  
+  .process-steps {
+    grid-template-columns: 1fr;
+  }
+}

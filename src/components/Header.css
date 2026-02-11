@@ -1,0 +1,87 @@
+.header {
+  background: var(--natural-white);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--soft-gray);
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 0;
+}
+
+.logo {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo h1 {
+  font-size: 1.5rem;
+  color: var(--sage-dark);
+  margin-bottom: 0.25rem;
+  letter-spacing: -0.5px;
+}
+
+.tagline {
+  font-size: 0.7rem;
+  color: var(--earth-brown);
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-links a {
+  font-weight: 400;
+  font-size: 0.95rem;
+  color: var(--dark-text);
+  transition: color 0.3s ease;
+  letter-spacing: 0.3px;
+}
+
+.nav-links a:hover {
+  color: var(--sage-green);
+}
+
+.cart-link {
+  position: relative;
+  font-weight: 500;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -12px;
+  background: var(--sage-green);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .nav-links {
+    gap: 1.5rem;
+    font-size: 0.9rem;
+  }
+}
